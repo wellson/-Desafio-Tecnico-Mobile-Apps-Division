@@ -46,3 +46,4 @@ app.*.map.json
 .history/
 .gitcomando.sh
 .DS_Store
+gitcomando.sh
