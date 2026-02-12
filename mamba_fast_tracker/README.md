@@ -23,12 +23,7 @@ Este projeto utiliza o **FVM (Flutter Version Management)** para garantir consis
      flutter pub get
     ```
 
-3.  **Gere os arquivos de código (para injeção de dependência e mocks):**
-    ```bash
-     flutter pub run build_runner build --delete-conflicting-outputs
-    ```
-
-4.  **Execute o aplicativo:**
+3.  **Execute o aplicativo:**
     ```bash
      flutter run
     ```
