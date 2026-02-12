@@ -33,17 +33,28 @@ Este projeto utiliza o **FVM (Flutter Version Management)** para garantir consis
      flutter run
     ```
 
-##  APK - INSTALAÇÃO
-
-- https://drive.google.com/file/d/1yoflfIN2469coUyz-QcWGH7qa-WOynOJ/view?usp=sharing
+4.  **Gerar apk do aplicativo:**
+```bash
+    flutter build apk --release
+  ```   
 
 ---
+##  APK - INSTALAÇÃO
+
+- https://drive.google.com/file/d/1sYMIO_YXzyq1WUPO6wf530Ei3Z5rfxwv/view?usp=sharing
+
+##  Cadastrar ou fazer
+
+- Para fazer o login na api deve cadastrar clicando em criar conta ou efetuando o login existente:
+- login: john@mail.com
+- senha: changeme
 
 ## 🛠 Stack Escolhida
 
 -   **Linguagem:** Dart
 -   **Framework:** Flutter (Versão 3.38.5)
 -   **Gerenciamento de Versão:** FVM
+-   **Mock api  Platzi Fake Store api de usuarios :** https://fakeapi.platzi.com/en/rest/users/
 
 ---
 
