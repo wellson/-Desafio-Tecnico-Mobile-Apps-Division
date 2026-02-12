@@ -1,0 +1,7 @@
+
+# FVM Version Cache
+.fvm/
+.history/
+.gitcomando.sh
+.DS_Store
+build

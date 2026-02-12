@@ -1,0 +1,66 @@
+name: mamba_fast_tracker
+description: Mamba Fast Tracker - Intermittent fasting control + calorie logging
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.10.4
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # State Management
+  flutter_bloc: ^9.1.1
+  bloc: ^9.0.0
+  equatable: ^2.0.7
+
+  # Networking
+  dio: ^5.8.0+1
+
+  # Local Storage
+  sqflite: ^2.4.2
+  path: ^1.9.1
+  flutter_secure_storage: ^9.2.4
+  shared_preferences: ^2.5.3
+
+  # Notifications
+  flutter_local_notifications: ^18.0.1
+  timezone: ^0.10.1
+
+  # Dependency Injection
+  get_it: ^8.0.3
+
+  # Routing
+  go_router: ^14.8.1
+
+  # Charts
+  graphic: ^2.4.0
+
+  # Utils
+  intl: ^0.20.2
+
+  # UI
+  cupertino_icons: ^1.0.8
+  google_fonts: ^6.2.1
+  flutter_background_service: ^5.1.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+  flutter_launcher_icons: ^0.14.2
+  mocktail: ^1.0.4
+  bloc_test: ^10.0.0
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/icon/logo.png"
+  min_sdk_android: 21 # android min sdk min:16, default 21
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/icon/

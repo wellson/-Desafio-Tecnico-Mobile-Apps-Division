@@ -1,0 +1,28 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "mamba_fast_tracker",
+            "cwd": "mamba_fast_tracker",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "mamba_fast_tracker (profile mode)",
+            "cwd": "mamba_fast_tracker",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "mamba_fast_tracker (release mode)",
+            "cwd": "mamba_fast_tracker",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        }
+    ]
+}
