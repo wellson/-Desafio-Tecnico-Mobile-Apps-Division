@@ -33,10 +33,15 @@ Este projeto utiliza o **FVM (Flutter Version Management)** para garantir consis
      flutter run
     ```
 
+4.  **Gerar apk do aplicativo:**
+```bash
+    flutter build apk --release
+  ```   
+
 ---
 ##  APK - INSTALAÇÃO
 
-- https://drive.google.com/file/d/1yoflfIN2469coUyz-QcWGH7qa-WOynOJ/view?usp=sharing
+- https://drive.google.com/file/d/1sYMIO_YXzyq1WUPO6wf530Ei3Z5rfxwv/view?usp=sharing
 
 ##  Cadastrar ou fazer
 
