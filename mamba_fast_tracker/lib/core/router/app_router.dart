@@ -5,6 +5,7 @@ import 'package:mamba_fast_tracker/core/di/injection_container.dart';
 import 'package:mamba_fast_tracker/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:mamba_fast_tracker/features/auth/presentation/cubit/auth_state.dart';
 import 'package:mamba_fast_tracker/features/auth/presentation/pages/login_page.dart';
+import 'package:mamba_fast_tracker/features/auth/presentation/pages/register_page.dart';
 import 'package:mamba_fast_tracker/features/daily_summary/presentation/cubit/daily_summary_cubit.dart';
 import 'package:mamba_fast_tracker/features/daily_summary/presentation/pages/daily_summary_page.dart';
 import 'package:mamba_fast_tracker/features/fasting/presentation/cubit/fasting_cubit.dart';
@@ -29,12 +30,14 @@ class AppRouter {
     redirect: (context, state) {
       final authState = authCubit.state;
       final isLoginRoute = state.matchedLocation == '/login';
+      final isRegisterRoute = state.matchedLocation == '/register';
 
       if (authState is AuthUnauthenticated || authState is AuthError) {
-        return isLoginRoute ? null : '/login';
+        if (isLoginRoute || isRegisterRoute) return null;
+        return '/login';
       }
 
-      if (authState is AuthAuthenticated && isLoginRoute) {
+      if (authState is AuthAuthenticated && (isLoginRoute || isRegisterRoute)) {
         return '/fasting';
       }
 
@@ -44,6 +47,10 @@ class AppRouter {
       GoRoute(
         path: '/login',
         builder: (context, state) => const LoginPage(),
+      ),
+      GoRoute(
+        path: '/register',
+        builder: (context, state) => const RegisterPage(),
       ),
       GoRoute(
         path: '/settings',

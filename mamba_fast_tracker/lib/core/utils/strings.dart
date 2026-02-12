@@ -17,6 +17,13 @@ class AppStrings {
   static const String passwordLabel = 'Senha';
   static const String passwordRequired = 'Informe sua senha';
   static const String loginButton = 'Entrar';
+  static const String registerButton = 'Registrar';
+  static const String registerTitle = 'Criar Conta';
+  static const String registerSubtitle = 'Cadastre-se para começar!';
+  static const String nameLabelAuth = 'Nome';
+  static const String nameRequired = 'Informe seu nome';
+  static const String createAccount = 'Criar Conta';
+  static const String passwordLengthError = 'A senha deve ter pelo menos 4 caracteres';
 
   // Fasting Page
   static const String fastingTitle = 'Jejum';

@@ -6,14 +6,15 @@ import 'package:mamba_fast_tracker/features/auth/presentation/cubit/auth_cubit.d
 import 'package:mamba_fast_tracker/features/auth/presentation/cubit/auth_state.dart';
 import 'package:mamba_fast_tracker/core/utils/strings.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class RegisterPage extends StatefulWidget {
+  const RegisterPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterPageState extends State<RegisterPage> {
+  final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
@@ -21,6 +22,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   void dispose() {
+    _nameController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
     super.dispose();
@@ -29,6 +31,15 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text(AppStrings.registerTitle),
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        leading: IconButton(
+            icon: const Icon(Icons.arrow_back, color: AppTheme.primaryColor),
+            onPressed: () => context.pop(),
+        ),
+      ),
       body: BlocListener<AuthCubit, AuthState>(
         listener: (context, state) {
           if (state is AuthError) {
@@ -50,28 +61,34 @@ class _LoginPageState extends State<LoginPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    // Logo/Title
-                    Container(
-                      padding: const EdgeInsets.all(20),
-                      child: Image.asset(
-                        'assets/icon/logo.png',
-                        height: 100,
-                        width: 100,
-                      ),
-                    ),
-                    const SizedBox(height: 24),
                     Text(
-                      AppStrings.loginTitle,
+                      AppStrings.registerTitle,
                       style: Theme.of(context).textTheme.headlineLarge,
                       textAlign: TextAlign.center,
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      AppStrings.loginSubtitle,
+                      AppStrings.registerSubtitle,
                       style: Theme.of(context).textTheme.bodyMedium,
                       textAlign: TextAlign.center,
                     ),
-                    const SizedBox(height: 48),
+                    const SizedBox(height: 32),
+
+                    // Name
+                    TextFormField(
+                      controller: _nameController,
+                      decoration: const InputDecoration(
+                        labelText: AppStrings.nameLabelAuth,
+                        prefixIcon: Icon(Icons.person_outline),
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return AppStrings.nameRequired;
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 16),
 
                     // Email
                     TextFormField(
@@ -115,12 +132,15 @@ class _LoginPageState extends State<LoginPage> {
                         if (value == null || value.isEmpty) {
                           return AppStrings.passwordRequired;
                         }
+                        if (value.length < 4) {
+                            return AppStrings.passwordLengthError;
+                        }
                         return null;
                       },
                     ),
                     const SizedBox(height: 32),
 
-                    // Login button
+                    // Register button
                     BlocBuilder<AuthCubit, AuthState>(
                       builder: (context, state) {
                         final isLoading = state is AuthLoading;
@@ -129,7 +149,8 @@ class _LoginPageState extends State<LoginPage> {
                               ? null
                               : () {
                                   if (_formKey.currentState!.validate()) {
-                                    context.read<AuthCubit>().login(
+                                    context.read<AuthCubit>().register(
+                                          _nameController.text.trim(),
                                           _emailController.text.trim(),
                                           _passwordController.text,
                                         );
@@ -144,14 +165,9 @@ class _LoginPageState extends State<LoginPage> {
                                     color: Colors.white,
                                   ),
                                 )
-                                : const Text(AppStrings.loginButton),
+                              : const Text(AppStrings.createAccount),
                         );
                       },
-                    ),
-                    const SizedBox(height: 16),
-                    TextButton(
-                      onPressed: () => context.push('/register'),
-                      child: const Text(AppStrings.createAccount),
                     ),
                   ],
                 ),

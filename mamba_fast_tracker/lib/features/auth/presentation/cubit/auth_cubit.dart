@@ -33,6 +33,18 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
+  Future<void> register(String name, String email, String password) async {
+    emit(AuthLoading());
+    try {
+      await _authRepository.register(name, email, password);
+      // Automatically login after registration or ask user to login?
+      // For now, let's login automatically for better UX
+      await login(email, password);
+    } catch (e) {
+      emit(AuthError(e.toString().replaceAll('Exception: ', '')));
+    }
+  }
+
   Future<void> logout() async {
     await _authRepository.logout();
     emit(AuthUnauthenticated());

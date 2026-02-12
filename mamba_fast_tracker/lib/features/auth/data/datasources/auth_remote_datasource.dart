@@ -34,6 +34,26 @@ class AuthRemoteDatasource {
     }
   }
 
+  Future<void> register({
+    required String name,
+    required String email,
+    required String password,
+  }) async {
+    try {
+      await _dioClient.dio.post(
+        '/users/',
+        data: {
+          'name': name,
+          'email': email,
+          'password': password,
+          'avatar': 'https://picsum.photos/800',
+        },
+      );
+    } on DioException catch (e) {
+      throw Exception('Registration failed: ${e.message}');
+    }
+  }
+
   Future<UserModel> getProfile() async {
     try {
       final response = await _dioClient.dio.get('/auth/profile');

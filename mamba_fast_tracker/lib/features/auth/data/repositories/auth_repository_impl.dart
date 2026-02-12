@@ -23,6 +23,11 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
+  Future<void> register(String name, String email, String password) async {
+    await _remoteDatasource.register(name: name, email: email, password: password);
+  }
+
+  @override
   Future<User> getProfile() async {
     try {
       final user = await _remoteDatasource.getProfile();
