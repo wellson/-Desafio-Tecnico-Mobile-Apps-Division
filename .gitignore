@@ -4,4 +4,4 @@
 .history/
 .gitcomando.sh
 .DS_Store
-build
+build/
