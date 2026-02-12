@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mamba_fast_tracker/core/di/injection_container.dart';
 import 'package:mamba_fast_tracker/core/services/background_service.dart';
 import 'package:mamba_fast_tracker/core/notifications/notification_service.dart';
+import 'package:mamba_fast_tracker/core/services/sound_service.dart';
 import 'package:mamba_fast_tracker/core/router/app_router.dart';
 import 'package:mamba_fast_tracker/core/theme/app_theme.dart';
 import 'package:mamba_fast_tracker/core/theme/theme_cubit.dart';
@@ -16,6 +17,7 @@ void main() async {
   await AppDateUtils.initLocale();
   // Initialize dependencies
   await initDependencies();
+  await sl<SoundService>().initialize();
 
   // Initialize notifications
   await sl<NotificationService>().initialize();

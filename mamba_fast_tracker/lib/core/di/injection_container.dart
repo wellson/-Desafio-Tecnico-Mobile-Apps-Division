@@ -2,6 +2,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mamba_fast_tracker/core/network/dio_client.dart';
 import 'package:mamba_fast_tracker/core/notifications/notification_service.dart';
+import 'package:mamba_fast_tracker/core/services/sound_service.dart';
 import 'package:mamba_fast_tracker/features/auth/data/datasources/auth_local_datasource.dart';
 import 'package:mamba_fast_tracker/features/auth/data/datasources/auth_remote_datasource.dart';
 import 'package:mamba_fast_tracker/features/auth/data/repositories/auth_repository_impl.dart';
@@ -30,6 +31,7 @@ Future<void> initDependencies() async {
   sl.registerLazySingleton(() => const FlutterSecureStorage());
   sl.registerLazySingleton(() => DioClient(sl<FlutterSecureStorage>()));
   sl.registerLazySingleton(() => NotificationService());
+  sl.registerLazySingleton(() => SoundService());
 
   // ── Datasources ──
   sl.registerLazySingleton(() => AuthRemoteDatasource(sl<DioClient>(), sl<FlutterSecureStorage>()));

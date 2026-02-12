@@ -7,6 +7,8 @@ import 'package:mamba_fast_tracker/core/utils/date_utils.dart';
 import 'package:mamba_fast_tracker/features/fasting/domain/entities/fasting_protocol.dart';
 import 'package:mamba_fast_tracker/features/fasting/presentation/cubit/fasting_cubit.dart';
 import 'package:mamba_fast_tracker/features/fasting/presentation/cubit/fasting_state.dart';
+import 'package:mamba_fast_tracker/core/di/injection_container.dart';
+import 'package:mamba_fast_tracker/core/services/sound_service.dart';
 import 'package:mamba_fast_tracker/core/utils/strings.dart';
 
 class FastingPage extends StatefulWidget {
@@ -65,31 +67,48 @@ class _FastingPageState extends State<FastingPage> with WidgetsBindingObserver {
           ),
         ],
       ),
-      body: BlocBuilder<FastingCubit, FastingState>(
-        builder: (context, state) {
-          if (state is FastingLoading) {
-            return const Center(child: CircularProgressIndicator());
-          }
-
-          if (state is FastingError) {
-            return Center(child: Text('Erro: ${state.message}'));
-          }
-
-          if (state is FastingActive) {
-            return _buildActiveTimer(context, state);
-          }
-
-          if (state is FastingCompleted) {
-            return _buildCompletedView(context, state);
-          }
-
-          if (state is FastingIdle) {
-            return _buildIdleView(context, state);
-          }
-
-          return const Center(child: CircularProgressIndicator());
+      body: BlocListener<FastingCubit, FastingState>(
+        listenWhen: (previous, current) {
+          // Play sound when starting (Idle -> Active)
+          if (previous is FastingIdle && current is FastingActive) return true;
+          // Play sound when finishing (Active -> Completed)
+          if (previous is FastingActive && current is FastingCompleted) return true;
+          return false;
         },
+        listener: (context, state) {
+          if (state is FastingActive) {
+            sl<SoundService>().playFastStarted();
+          } else if (state is FastingCompleted) {
+            sl<SoundService>().playFastEnded();
+          }
+        },
+        child: BlocBuilder<FastingCubit, FastingState>(
+          builder: (context, state) {
+            if (state is FastingLoading) {
+              return const Center(child: CircularProgressIndicator());
+            }
+
+            if (state is FastingError) {
+              return Center(child: Text('Erro: ${state.message}'));
+            }
+
+            if (state is FastingActive) {
+              return _buildActiveTimer(context, state);
+            }
+
+            if (state is FastingCompleted) {
+              return _buildCompletedView(context, state);
+            }
+
+            if (state is FastingIdle) {
+              return _buildIdleView(context, state);
+            }
+
+            return const Center(child: CircularProgressIndicator());
+          },
+        ),
       ),
+      // This allows the BlocBuilder to rebuild the UI while BlocListener handles side effects
     );
   }
 
