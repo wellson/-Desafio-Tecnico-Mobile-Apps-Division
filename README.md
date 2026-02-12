@@ -33,6 +33,10 @@ Este projeto utiliza o **FVM (Flutter Version Management)** para garantir consis
      flutter run
     ```
 
+##  APK - INSTALAÇÃO
+
+- https://drive.google.com/file/d/1yoflfIN2469coUyz-QcWGH7qa-WOynOJ/view?usp=sharing
+
 ---
 
 ## 🛠 Stack Escolhida

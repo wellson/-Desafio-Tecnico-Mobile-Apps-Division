@@ -1,25 +1,46 @@
+import 'package:mamba_fast_tracker/features/auth/data/datasources/auth_local_datasource.dart';
 import 'package:mamba_fast_tracker/features/auth/data/datasources/auth_remote_datasource.dart';
 import 'package:mamba_fast_tracker/features/auth/domain/entities/user.dart';
 import 'package:mamba_fast_tracker/features/auth/domain/repositories/auth_repository.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
   final AuthRemoteDatasource _remoteDatasource;
+  final AuthLocalDatasource _localDatasource;
 
-  AuthRepositoryImpl(this._remoteDatasource);
+  AuthRepositoryImpl(this._remoteDatasource, this._localDatasource);
 
   @override
   Future<void> login(String email, String password) async {
     await _remoteDatasource.login(email, password);
+    // After login, try to get profile to cache it
+    try {
+      final user = await _remoteDatasource.getProfile();
+      await _localDatasource.saveUser(user);
+    } catch (_) {
+      // Ignore if profile fetch fails after login, 
+      // but ideally we should have the user data.
+    }
   }
 
   @override
   Future<User> getProfile() async {
-    return await _remoteDatasource.getProfile();
+    try {
+      final user = await _remoteDatasource.getProfile();
+      await _localDatasource.saveUser(user);
+      return user;
+    } catch (e) {
+      final localUser = await _localDatasource.getUser();
+      if (localUser != null) {
+        return localUser;
+      }
+      rethrow;
+    }
   }
 
   @override
   Future<void> logout() async {
     await _remoteDatasource.logout();
+    await _localDatasource.clearUser();
   }
 
   @override

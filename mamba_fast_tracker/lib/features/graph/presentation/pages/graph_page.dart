@@ -199,6 +199,13 @@ class _GraphPageState extends State<GraphPage> {
         ),
         'value': Variable(
           accessor: (Map map) => map['value'] as num,
+          scale: LinearScale(
+            min: 0,
+            max: _showCalories ? 3000 : 24, // Reasonable max: 3000 kcal or 24 hours
+            formatter: (v) => _showCalories
+                ? '${v.toInt()}'
+                : '${v.toStringAsFixed(1)}h',
+          ),
         ),
       },
       marks: [

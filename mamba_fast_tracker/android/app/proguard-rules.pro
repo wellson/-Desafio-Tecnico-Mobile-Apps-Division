@@ -1,6 +1,9 @@
 # Flutter Local Notifications
 -keep class com.dexterous.flutterlocalnotifications.** { *; }
 
+# Flutter Background Service
+-keep class id.flutter.flutter_background_service.** { *; }
+
 # Gson (used by flutter_local_notifications for serialization)
 -keep class com.google.gson.** { *; }
 -keep class com.google.gson.reflect.TypeToken { *; }

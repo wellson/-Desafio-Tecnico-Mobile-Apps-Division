@@ -14,7 +14,8 @@ class AppConstants {
   // Secure storage keys
   static const String accessTokenKey = 'access_token';
   static const String refreshTokenKey = 'refresh_token';
-
+  static const String userKey = 'cached_user_profile';
+  
   // Database
   static const String databaseName = 'mamba_fast_tracker.db';
   static const int databaseVersion = 1;
