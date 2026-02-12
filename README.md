@@ -98,6 +98,7 @@ As principais bibliotecas externas incluem:
 -   **`flutter_background_service`:** Execução de código em background.
 -   **`graphic`:** Renderização de gráficos.
 -   **`dio`:** Cliente HTTP (preparado para futuras integrações de API).
+-   **`audioplayers`:** Reprodução de sons de notificação.
 -   **`mocktail` / `bloc_test`:** Testes unitários.
 
 ---
